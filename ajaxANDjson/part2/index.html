@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Welcome to Vecta Corp.</title>
+    <!-- Normal style sheet used for layout and general formatting. -->
+    <link href="styles.css" rel="stylesheet">
+    <!-- jQuery library reference. Latest is always referenced from jQuery's CDN. -->
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <!-- PART 2 -->
+    <!-- In this part of the assignment you will be working with the jQuery .get() shorthand method. In the lectures for this topic you saw that you can programmatically load XML data into a web page using a server-side script such as a PHP file as an intermediary. Here you will connect directly to an XML file and retrieve its contents.
+        a. Open index.html.
+        b. Within the <script> tag, replace the existing comment with a document ready function.
+        c.Use the $.get() method to point to the team.xml file. Upon successful load, it should call a function to execute some code. This function can be a callback function or a user-defined function...it’s up to you. Don’t forget to pass in a parameter within the function...this will represent the actual XML data and will be used to iterate through.
+        d. Within the function, use method chaining to iterate through each of the child nodes in the management node. You may have to go back to the first lecture to figure this one out!
+        e. Within the .each() method, append the contents of the name, title, and bio nodes to the div element uniquely identified as team. Don’t forget to concatenate some simple HTML markup to help format the text on the web page. -->
+
+    <script>
+        $(document).ready(function () { //part2 stepb
+
+            $.get("team.xml", showTeam);//grabs team.xml, showTeam is function parameter 
+                function showTeam(data) {  
+                    $(data).find("management").children().each(function() {//find children of management and for each run function:
+                        $("#team").append(//grab team and add:
+                            "<h4>" +
+                            $(document).find ("name").text() + //can also use 'this' instead of document
+                            //from doc find name tag and add its text 
+                            "</h4>" + 
+                            "<p>" + 
+                            $(document).find("title").text() + //can also use 'this' instead of document
+                            //from doc find title tag and add its text
+                            "<br>" + 
+                            $(this).find("bio").text() + //WHY cant use document here -only 'this'?
+                            //only worked with 'this' to find bio tag and add its text
+                            "</p>");
+              });
+            }//closing for function showTeam
+        });//closing for doc ready
+
+//WORKS but not sure how exactly:
+        //     $.get("team.xml", function () {})
+        //         .done(function (xmlDocument) {
+        //             // let team = xmlDocument.querySelector('teammember') //grabs each teammember tag in the team.xml file
+        //             //WHY DOESNT QUERY SELECTOR WORK HERE
+        //             let team = xmlDocument.getElementsByTagName('teammember') //grabs each teammember tag in the team.xml file
+        //             let html = "", i;
+
+        //             Array.from(team).forEach((element, index) => {
+        //                 html += element.getElementsByTagName("name").item(0).innerHTML + "<br>" +
+        //                     element.getElementsByTagName("title").item(0).innerHTML + "<br>" +
+        //                     element.getElementsByTagName("bio").item(0).innerHTML + "<br><br>"
+        //             })
+        //             $('#team').append(html);
+        //         })
+    </script>
+</head>
+
+<body>
+    <section id="container">
+        <header></header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="support.html">Support</a></li>
+                <li><a href="contactus.html">Contact Us</a></li>
+            </ul>
+        </nav>
+
+        <section id="content">
+            <h2>The Vecta Corp. Management Team</h2>
+
+            <div id="team"></div>
+        </section>
+
+        <footer></footer>
+    </section>
+</body>
+
+</html>

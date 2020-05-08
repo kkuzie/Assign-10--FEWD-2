@@ -11,55 +11,35 @@
     <script>
         $(document).ready(function () {
 
-            $.ajax({
-                type: "get",
-                url: "json.js",
-                beforeSend: function () {
-                    $("#result").html("Loading Content...");
-                },
-                timeout: 10000,
-                error: function (xhr, status, error) {
-                    window.alert(xhr.status + " " + error);
-                },
-                dataType: "json",
-                success: function (data) {
-                    $("#result").html("");
-                    $.each(data, function () {
-                        $.each(this, function (key, value) {
-                            $("#result").append("<b>" + value.name + "</b>" + "<br>" + value.title + "<br>" + value.bio + "<br><br>");
-                        });
-                    });
-                }
-            });
-// $.ajax({
-//     type: 'get',//gets info
-//     url: 'json.js',//grabs file
-//     beforeSend: function () {
-//         $('#result').html('Please wait while page is loading...');//grabs id result, adds message
-//     },
-//     timeout: 10000,
-//     error: function (xhr, status, error) {
-//         alert('Sorry, there is an error: ' + xhr.status + ' - ' + error);
-//     },
-//     dataType: 'json',
-//     success: function (data) {
-//         $('#result').html("");//grabs id result, 'deletes' message
-//         // object = data.teammembers;
-//         $.each(data, function () {
-//             // $.each(object, function(key, value) {
-//             $.each(this, function (key, value) {
-//                 $('#result').append(
-//                     value.name + 
-//                     '<p>' + 
-//                     value.title +
-//                     '<br>' + 
-//                     value.bio + 
-//                     '</p>'
-//                     );//closing for append
-//             }); //closing for $.each(this,...)
-//         }); //closing for $.each(data, function())
-//     } //closing for success: function
-// }); //closing for ajax
+$.ajax({
+    type: 'get',//gets info
+    url: 'json.js',//grabs file
+    beforeSend: function () {
+        $('#result').html('Please wait while page is loading...');//grabs id result, adds message
+    },
+    timeout: 10000,
+    error: function (xhr, status, error) {
+        alert('Sorry, there is an error: ' + xhr.status + ' - ' + error);
+    },
+    dataType: 'json',
+    success: function (data) {
+        $('#result').html("");//grabs id result, 'deletes' message
+        // object = data.teammembers;
+        $.each(data, function () {
+            // $.each(object, function(key, value) {
+            $.each(this, function (key, value) {
+                $('#result').append(
+                    value.name + 
+                    '<p>' + 
+                    value.title +
+                    '<br>' + 
+                    value.bio + 
+                    '</p>'
+                    );//closing for append
+            }); //closing for $.each(this,...)
+        }); //closing for $.each(data, function())
+    } //closing for success: function
+}); //closing for ajax
 });//closing tag for doc ready
 
 //also works
